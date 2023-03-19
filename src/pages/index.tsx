@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { GetServerSideProps } from "next";
+import prefixUrl from "@/helpers/prefixUrl";
 
 export default function Home({ message }: { message: string }) {
   return (
@@ -20,11 +21,19 @@ export default function Home({ message }: { message: string }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const response = await fetch("http://localhost:3000/api/v1/hello");
-  const data = await response.json();
-  return {
-    props: {
-      message: data,
-    },
-  };
+  try {
+    const url = prefixUrl("/api/v1/hello", ctx);
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(url);
+    return {
+      props: {
+        message: data,
+      },
+    };
+  } catch (err) {
+    return {
+      notFound: true,
+    };
+  }
 };
