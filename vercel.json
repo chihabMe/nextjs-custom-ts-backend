@@ -2,7 +2,7 @@
           "version": 2,
             "builds": [
               {
-                "src": "./server/app.ts",   // server.ts is in root
+                "src": "./server/app.ts", 
                 "use": "@vercel/node"
               }
             ],
