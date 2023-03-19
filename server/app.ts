@@ -25,7 +25,8 @@ const runServer = () => {
     app.listen(process.env.PORT ?? 3000, () => {
       console.log("running on prt 3000");
     });
+    return app;
   });
 };
 
-runServer();
+module.exports = runServer();
